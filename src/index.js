@@ -31,7 +31,7 @@ App.use(express.static("./../public/image"));
 
 App.use(
   cors({
-    origin: "https://hrms-two-silk.vercel.app/",
+    origin: "https://hrms-two-silk.vercel.app",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
