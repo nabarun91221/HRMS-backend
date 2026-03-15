@@ -2,8 +2,10 @@ import { ROLES } from "../../../shared/utils/roles.js";
 import Employee from "../../employees/models/employee.model.js";
 import User from "../models/user.model.js";
 import GenerateTokenUtil from "../utils/generateToken.util.js";
-class AuthController {
-  registerUser = async (req, res) => {
+class AuthController
+{
+  registerUser = async (req, res) =>
+  {
     try {
       const user = await User.create(req.body);
       if (user) {
@@ -18,7 +20,8 @@ class AuthController {
       });
     }
   };
-  logIn = async (req, res) => {
+  logIn = async (req, res) =>
+  {
     try {
       const user = await User.findOne({ email: req.body.email });
 
@@ -45,25 +48,24 @@ class AuthController {
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
+        sameSite: "none",
         maxAge: 3 * 60 * 60 * 1000,
       });
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
       res.cookie("userRole", role, {
         httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
-
       let employee = null;
 
       if (role === ROLES.EMPLOYEE) {
@@ -110,7 +112,8 @@ class AuthController {
     }
   };
 
-  logout = async (req, res) => {
+  logout = async (req, res) =>
+  {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken", { path: "/refresh" });
     res.status(200).json({
@@ -119,7 +122,8 @@ class AuthController {
     });
   };
 
-  resetPassword = async (req, res) => {
+  resetPassword = async (req, res) =>
+  {
     const { email } = req.params;
     try {
       const isUserExist = await User.findOne({ email: email });
