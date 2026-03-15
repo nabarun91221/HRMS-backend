@@ -48,24 +48,25 @@ class AuthController
 
       res.cookie("accessToken", accessToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
         maxAge: 3 * 60 * 60 * 1000,
       });
 
       res.cookie("refreshToken", refreshToken, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
 
       res.cookie("userRole", role, {
         httpOnly: true,
-        secure: true,
-        sameSite: "none",
+        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production",
         maxAge: 7 * 24 * 60 * 60 * 1000,
       });
+
       let employee = null;
 
       if (role === ROLES.EMPLOYEE) {
